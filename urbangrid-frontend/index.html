@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UrbanGrid</title>
+</head>
+<body>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  window.location.href = AuthHelper.isLoggedIn() ? "dashboard.html" : "login.html";
+</script>
+</body>
+</html>
