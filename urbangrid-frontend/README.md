@@ -4,10 +4,10 @@ A vanilla HTML5 / CSS3 / Bootstrap 5 / Axios frontend for the UrbanGrid Spring B
 
 ## Running it
 
-1. Make sure the Spring Boot backend is running (default: `http://localhost:8080`).
-2. Open `frontend/` in VS Code and start **Live Server** on `login.html` (or `index.html`).
+1. Production Spring Boot backend is deployed at: `https://urbangridproject-production.up.railway.app`.
+2. Open `frontend/` in VS Code and start **Live Server** on `login.html` (or `index.html`), or deploy directly to Vercel/Netlify.
    No build step, no npm install — everything is loaded from CDNs.
-3. If your backend runs on a different host/port, change `API_BASE_URL` at the top of `js/api.js`.
+3. If your backend runs on a different host/port, set `window.UG_API_BASE_URL` or change `API_BASE_URL` at the top of `js/api.js`.
 
 ## Login
 

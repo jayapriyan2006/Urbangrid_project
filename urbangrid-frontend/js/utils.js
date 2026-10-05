@@ -100,7 +100,7 @@ const AlertHelper = {
       if (data.message) return data.message;
     }
     if (error && error.message === "Network Error") {
-      return "Can't reach the server. Is the backend running on localhost:8080?";
+      return "Can't reach the backend server. Please check your internet connection or server availability.";
     }
     return fallback;
   }

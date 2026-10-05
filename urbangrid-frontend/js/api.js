@@ -2,11 +2,12 @@
    UrbanGrid — api.js
    Axios instance, interceptors, and a thin wrapper around every backend
    endpoint. This is the ONLY file that should know request/response shapes.
-   Backend base URL below — change this if your Spring Boot app runs
-   elsewhere (default: http://localhost:8080).
+   Production Railway backend URL below.
    ========================================================================== */
 
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL =
+  (typeof window !== "undefined" && window.UG_API_BASE_URL) ||
+  "https://urbangridproject-production.up.railway.app/api";
 
 // Single Axios instance used everywhere.
 const apiClient = axios.create({
@@ -17,7 +18,9 @@ const apiClient = axios.create({
 /* ---------- Request interceptor: attach JWT to every request ---------- */
 apiClient.interceptors.request.use(
   (config) => {
-    const token = AuthHelper.getToken();
+    const token = (typeof AuthHelper !== "undefined" && AuthHelper.getToken)
+      ? AuthHelper.getToken()
+      : localStorage.getItem("ug_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -35,7 +38,12 @@ apiClient.interceptors.response.use(
 
       if (status === 401) {
         // Token missing/expired/invalid — force re-login.
-        AuthHelper.clearSession();
+        if (typeof AuthHelper !== "undefined") {
+          AuthHelper.clearSession();
+        } else {
+          localStorage.removeItem("ug_token");
+          localStorage.removeItem("ug_user");
+        }
         if (!window.location.pathname.endsWith("login.html")) {
           window.location.href = "login.html";
         }
