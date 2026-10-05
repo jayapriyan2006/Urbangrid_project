@@ -1,6 +1,6 @@
 # 🚌 UrbanGrid — Urban Public Transport Management System
 
-A full-stack college final-year project built with **Spring Boot 3 + React**.
+UrbanGrid is a Spring Boot-based Urban Public Transport Management System that provides secure REST APIs for managing buses, routes, drivers, schedules, passengers, and bookings. Built with Java, Spring Security, JWT, JPA, Hibernate, and MySQL using a scalable layered architecture.
 
 ---
 
@@ -31,22 +31,7 @@ urbangrid/
 │       ├── dto/                      ← Request/Response DTOs
 │       └── exception/                ← Global Exception Handling
 │
-└── frontend/                         ← React 18 + Ant Design 5
-    ├── package.json
-    └── src/
-        ├── App.js                    ← Routes & PrivateRoute guard
-        ├── index.js
-        ├── store/                    ← Redux Toolkit (auth state)
-        ├── services/api.js           ← Axios with JWT interceptor
-        ├── layout/DashboardLayout.js ← Role-aware sidebar
-        └── pages/
-            ├── LoginPage.js
-            ├── RegisterPage.js
-            ├── Dashboard.js
-            ├── RouteManagement.js
-            ├── ScheduleManagement.js
-            ├── TransportManagement.js
-            └── BroadcastAlert.js
+└── frontend/                         ← Vanilla JS / HTML Frontend
 ```
 
 ---
@@ -58,8 +43,6 @@ urbangrid/
 | Java        | 17+      |
 | Maven       | 3.8+     |
 | MySQL       | 8.0+     |
-| Node.js     | 18+      |
-| npm         | 9+       |
 
 ---
 
@@ -89,12 +72,12 @@ spring.datasource.password=root     # ← your MySQL password
 ## 🚀 Step 3 — Run the Backend
 
 ```bash
-cd urbangrid/backend
+cd backend
 mvn clean install
 mvn spring-boot:run
 ```
 
-Backend starts at: **http://localhost:8080**
+Backend starts at: **http://localhost:8081**
 
 Watch for these startup messages:
 ```
@@ -107,16 +90,7 @@ Watch for these startup messages:
 
 ## 💻 Step 4 — Run the Frontend
 
-```bash
-cd urbangrid/frontend
-npm install
-npm start
-```
-
-Frontend starts at: **http://localhost:3000**
-
-> The `"proxy": "http://localhost:8080"` in `package.json` forwards all `/api` calls
-> to the backend automatically — no CORS issues in development.
+Open `urbangrid-frontend/index.html` or `login.html` in your web browser.
 
 ---
 
@@ -204,38 +178,26 @@ GET    /api/reports/share       → transport type distribution
 
 | Layer       | Technology                        |
 |-------------|-----------------------------------|
-| Backend     | Spring Boot 3.2, Java 17, Maven   |
+| Backend     | Spring Boot 3.2, Java 17/21, Maven|
 | Database    | MySQL 8, Spring Data JPA          |
 | Security    | Spring Security, JWT (jjwt 0.11)  |
-| Frontend    | React 18, Ant Design 5            |
-| State Mgmt  | Redux Toolkit                     |
-| HTTP Client | Axios (with JWT interceptor)      |
-| Utilities   | Lombok, Dayjs                     |
+| Frontend    | HTML5, CSS3, JavaScript, Axios    |
+| Utilities   | Lombok                            |
 
 ---
 
 ## 🐞 Common Issues
 
-### Port 8080 already in use
+### Port 8081 already in use
 ```bash
 # Find and kill the process
-lsof -i :8080
+lsof -i :8081
 kill -9 <PID>
 ```
 
 ### MySQL connection refused
 - Ensure MySQL service is running: `sudo service mysql start`
 - Check credentials in `application.properties`
-
-### npm install fails
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-### 401 Unauthorized on all requests
-- Token expired — log out and log back in
-- Check `urbangrid.jwt.secret` in `application.properties`
 
 ---
 
@@ -248,3 +210,4 @@ npm install
 - **JWT stateless auth** — no server-side sessions
 - **Role-based UI** — sidebar and buttons adapt based on logged-in user's role
 - **DataLoader** seeds the database on first run so demo works immediately
+
